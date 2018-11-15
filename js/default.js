@@ -9,6 +9,12 @@ $(document).ready(function() {
         updateMachine();
         console.log(globalMachine);
     });
+
+    $('.verify-word').keyup(() => {
+		if (globalMachine.length > 0){
+			verifyWord($('.verify-word').val());
+		}
+	});
 })
 
 function addWord(word) {
@@ -72,4 +78,22 @@ function updateMachine() {
     }
 
     globalMachine = machine;
+}
+
+function verifyWord(word){
+    var state = 0;
+    console.log(word);
+    for (var i = 0; i < word.length; i++) {
+        $('#machine tr').removeClass('focus-row');
+        $('#machine td').removeClass('focus-col');
+        $('#machine tr').removeClass('focus-row-erro');
+        $('#machine td').removeClass('focus-col-erro');
+        if (word[i] >= 'a' && word[i] <= 'z'){            
+            $('#machine .row-' + state).addClass('focus-row');
+            $('#machine .column-' + word[i]).addClass('focus-col');
+        } else if(word[i] == '-') {
+            $('#machine .linha-' + estado).addClass('focus-row-err');
+            $('#machine .coluna-' + palavra).addClass('focus-col-err');
+        }
+    }
 }
