@@ -1,24 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html class="has-navbar-fixed-top">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Lexus</title>
     <link rel="stylesheet" href="css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script defer src="js/default.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
+
   <body>
-  <section class="section">
-    <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
-    </div>
-  </section>
+    <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <p class="navbar-item">Lexical</p>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-quarter">
+                  <div class="box">
+                    <p class="title is-5">Add Word</p>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input new-word" type="text" placeholder="E.g.: lexical">
+                        </div>
+                    </div>
+                    <div class="field is-grouped-right">
+                        <div class="control">
+                            <button class="button is-primary add-word">Add</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="box">
+                    <p class="title is-5">Verify Word</p>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input verify-word" type="text" placeholder="E.g.: lexical">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-quarter">
+                  <div class="box">
+                    <p class="title is-5">Dictionary</p>
+                    <table class="table is-narrow is-striped is-fullwidth">
+                        <thead></thead>
+                        <tbody id="dict">
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <p class="title is-5">States Machine</p>
+                        <table class="table is-bordered is-narrow is-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>&</th>
+                                    <th>A</th>
+                                    <th>B</th>
+                                    <th>C</th>
+                                    <th>D</th>
+                                    <th>E</th>
+                                    <th>F</th>
+                                    <th>G</th>
+                                    <th>H</th>
+                                    <th>I</th>
+                                    <th>J</th>
+                                    <th>K</th>
+                                    <th>L</th>
+                                    <th>M</th>
+                                    <th>N</th>
+                                    <th>O</th>
+                                    <th>P</th>
+                                    <th>Q</th>
+                                    <th>R</th>
+                                    <th>S</th>
+                                    <th>T</th>
+                                    <th>U</th>
+                                    <th>V</th>
+                                    <th>W</th>
+                                    <th>X</th>
+                                    <th>Y</th>
+                                    <th>Z</th>
+                                </tr>
+                            </thead>
+                            <tbody id="machine">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   </body>
 </html>
