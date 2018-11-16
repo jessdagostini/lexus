@@ -6,8 +6,9 @@ var globalMachine = [];
 $(document).ready(function() {
     $(".add-word").click(function(){
         addWord(($('.new-word').val()).toLowerCase());
-        updateMachine();
-        console.log(globalMachine);
+        if (words.length > 0){
+            updateMachine();
+        }
     });
 
     $('.verify-word').keyup(() => {
@@ -18,13 +19,19 @@ $(document).ready(function() {
 })
 
 function addWord(word) {
-    // Verify if the field was not empty and if the word in not in the dict
+    // Verify if the field was not empty and if the word is not in the dict
     if (word && jQuery.inArray(word, words) == -1) {
-        words.push(word);
-        $('#dict').append(`<tr><td>${word}</td></tr>`);
+        // Verify if are only acceptable chars
+        var regex =  /([^A-Za-z_])/;
+        if (!regex.test(word)) {
+            words.push(word);
+            $('#dict').append(`<tr><td>${word}</td></tr>`);
+        } else {
+            alert('Only alphabetical characters are allowed.');
+        }
         $('.new-word').val('')
     } else {
-        alert('Word is not correct');
+        alert('Word already exists in dictionary');
     }
 }
 
@@ -66,10 +73,10 @@ function updateMachine() {
         }
 
         if (typeof states[i]['final'] !== 'undefined') {
-            row = `<td>q${i}*</td>` + row;
+            row = `<td class="states">q${i}*</td>` + row;
             aux['final'] = true;
         } else {
-            row = `<td>q${i}</td>` + row;
+            row = `<td class="states">q${i}</td>` + row;
         }
         
         $('#machine').append(`<tr class="row-${i}">${row}</tr>`);
@@ -82,18 +89,41 @@ function updateMachine() {
 
 function verifyWord(word){
     var state = 0;
-    console.log(word);
     for (var i = 0; i < word.length; i++) {
         $('#machine tr').removeClass('focus-row');
         $('#machine td').removeClass('focus-col');
-        $('#machine tr').removeClass('focus-row-erro');
-        $('#machine td').removeClass('focus-col-erro');
-        if (word[i] >= 'a' && word[i] <= 'z'){            
-            $('#machine .row-' + state).addClass('focus-row');
-            $('#machine .column-' + word[i]).addClass('focus-col');
-        } else if(word[i] == '-') {
-            $('#machine .linha-' + estado).addClass('focus-row-err');
-            $('#machine .coluna-' + palavra).addClass('focus-col-err');
+        $('#machine tr').removeClass('focus-row-err');
+        $('#machine td').removeClass('focus-col-err');
+
+        if (word[i] >= 'a' && word[i] <= 'z'){
+            if (globalMachine[state][word[i]] != '-'){
+                $('#machine .row-' + state).addClass('focus-row');
+                $('#machine .column-' + word[i]).addClass('focus-col');
+                $('.verify-word').addClass('valid');
+                $('.verify-word').removeClass('invalid');
+            } else {
+                $('.verify-word').removeClass('valid');
+                $('.verify-word').addClass('invalid');
+                $('#machine .row-' + state).addClass('focus-row-err');
+                $('#machine .column-' + word[i]).addClass('focus-col-err');
+            }
+            state = globalMachine[state][word[i]];
+        } else if (word[i] == ' ') {
+            if (globalMachine[state]['final']){
+                $('#machine .row-' + state).addClass('focus-row');
+                $('.verify-word').addClass('valid');
+                $('.verify-word').removeClass('invalid');
+                state = 0;
+            }
         }
+    }
+
+    if (word.length == 0) {
+        $('#machine tr').removeClass('focus-row');
+        $('#machine td').removeClass('focus-col');
+        $('#machine tr').removeClass('focus-row-err');
+        $('#machine td').removeClass('focus-col-err');
+        $('.verify-word').removeClass('valid');
+        $('.verify-word').removeClass('invalid');
     }
 }

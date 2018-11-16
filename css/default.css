@@ -1,3 +1,23 @@
 .focus-row, .focus-col{
-    background-color: #d0fef7;
+    background-color: rgba(29, 249, 107, 0.5);
+}
+
+.focus-row-err, .focus-col-err{
+    background-color: rgba(236, 19, 19, 0.59);
+}
+
+.valid {
+    color: green;
+    border-color: green !important;
+    box-shadow: 0 0 0 0.125em rgba(50, 220, 87, 0.25) !important;
+}
+
+.invalid {
+    color: red;
+    border-color: red !important;
+    box-shadow: 0 0 0 0.125em rgba(160, 4, 4, 0.25) !important;    
+}
+
+.states {
+    background-color: #f8f8f8;
 }
