@@ -13,11 +13,20 @@
 
   <body>
     <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <p class="navbar-item">Lexical</p>
+        <div class="navbar-brand centered">
+            <img class="navbar-item center" src="img/logo-3.png" />
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                    <a class="button is-primary dict">
+                        <span class="icon is-small"><i class="fas fa-book-open"></i></span>
+                        <strong>Dictionary</strong>
+                    </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
-
     <section class="section">
         <div class="container">
             <div class="columns">
@@ -89,5 +98,20 @@
             </div>
         </div>
     </section>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+            <p class="modal-card-title">Dictionary</p>
+            <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="tags" id="dict">
+                </div>
+            </section>
+            <footer class="modal-card-foot"></footer>
+        </div>
+    </div>
   </body>
 </html>

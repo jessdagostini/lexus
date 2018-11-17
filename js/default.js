@@ -4,6 +4,14 @@ var globalState = 0;
 var globalMachine = [];
 
 $(document).ready(function() {
+    $(".dict").click(function(){
+        $('.modal').addClass('is-active');
+    });
+
+    $(".close-modal").click(function(){
+        $('.modal').removeClass("is-active");
+    });
+
     $(".add-word").click(function(){
         addWord(($('.new-word').val()).toLowerCase());
         if (words.length > 0){
@@ -15,7 +23,7 @@ $(document).ready(function() {
 		if (globalMachine.length > 0){
 			verifyWord($('.verify-word').val());
 		}
-	});
+    });
 })
 
 function addWord(word) {
@@ -25,7 +33,7 @@ function addWord(word) {
         var regex =  /([^A-Za-z_])/;
         if (!regex.test(word)) {
             words.push(word);
-            $('#dict').append(`<tr><td>${word}</td></tr>`);
+            $('#dict').append(`<span class="tag is-primary is-word word-${word}">${word}<button class="delete is-small remove-word" onclick="removeWord('${word}')"></button></span>`);
         } else {
             alert('Only alphabetical characters are allowed.');
         }
@@ -35,8 +43,24 @@ function addWord(word) {
     }
 }
 
+function removeWord(word) {
+    words.splice($.inArray(word, words), 1);
+    states = [[]];
+    globalState = [[]];
+    globalState = 0;
+    $(".word-" + word).remove();
+    updateMachine();
+    $('.verify-word').val('');
+    $('.verify-word').removeClass('valid');
+    $('.verify-word').removeClass('invalid');
+}
+
 function updateMachine() {
     var next = 0;
+
+    if (words.length == 0) {
+        $('#machine').html('');
+    }
 
     words.forEach(word => {
         var curr = 0;
@@ -85,6 +109,7 @@ function updateMachine() {
     }
 
     globalMachine = machine;
+    console.log(globalMachine);
 }
 
 function verifyWord(word){
