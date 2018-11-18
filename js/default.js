@@ -20,9 +20,6 @@ $(document).ready(function() {
 
     $(".add-word").click(function(){
         addWord(($('.new-word').val()).toLowerCase());
-        if (words.length > 0){
-            updateMachine();
-        }
     });
 
     $('.verify-word').keyup(() => {
@@ -40,6 +37,7 @@ function addWord(word) {
         if (!regex.test(word)) {
             words.push(word);
             $('#dict').append(`<span class="tag is-primary is-word word-${word}">${word}<button class="delete is-small remove-word" onclick="removeWord('${word}')"></button></span>`);
+            updateMachine();
         } else {
             alert('Only alphabetical characters are allowed.');
         }
@@ -52,7 +50,7 @@ function addWord(word) {
 function removeWord(word) {
     words.splice($.inArray(word, words), 1);
     states = [[]];
-    globalState = [[]];
+    globalMachine = [[]];
     globalState = 0;
     $(".word-" + word).remove();
     updateMachine();
@@ -63,10 +61,6 @@ function removeWord(word) {
 
 function updateMachine() {
     var next = 0;
-
-    if (words.length == 0) {
-        $('#machine').html('');
-    }
 
     words.forEach(word => {
         var curr = 0;
