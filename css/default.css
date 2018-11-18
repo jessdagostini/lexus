@@ -25,3 +25,11 @@
 .centered {
     margin-left: 7%;
 }
+
+.state- {
+    color: #bbb;
+}
+
+#machine td{
+    padding-left: 10px;
+}
