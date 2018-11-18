@@ -64,6 +64,11 @@ function removeWord(word) {
     $('.verify-word').val('');
     $('.verify-word').removeClass('valid');
     $('.verify-word').removeClass('invalid');
+    iziToast.show({
+        message: `Word '${word}' removed from the dict!`,
+        color: 'green',
+        position: 'topCenter'
+    });
 }
 
 function updateMachine() {
