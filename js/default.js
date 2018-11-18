@@ -3,6 +3,12 @@ var states = [[]];
 var globalState = 0;
 var globalMachine = [];
 
+var primaryWords = ['include', 'define', 'using', 'namespace', 'main', 'string', 'unsigned'];
+primaryWords.forEach(word => {
+    addWord(word);
+})
+updateMachine();
+
 $(document).ready(function() {
     $(".dict").click(function(){
         $('.modal').addClass('is-active');
@@ -88,7 +94,7 @@ function updateMachine() {
         for(j = 'a'.charCodeAt(0); j <= 'z'.charCodeAt(0); j++) {
             var letter = String.fromCharCode(j);
             if (typeof states[i][letter] == 'undefined') {
-               row = row + `<td class="column-${letter}">-</td>`;
+               row = row + `<td class="column-${letter} state-"><img src="img/favicon.png"/ ></td>`;
                aux[letter] = '-';
             } else {
                 row = row + `<td class="column-${letter}">q${states[i][letter]}</td>`;
@@ -126,13 +132,14 @@ function verifyWord(word){
                 $('#machine .column-' + word[i]).addClass('focus-col');
                 $('.verify-word').addClass('valid');
                 $('.verify-word').removeClass('invalid');
+                state = globalMachine[state][word[i]];
             } else {
                 $('.verify-word').removeClass('valid');
                 $('.verify-word').addClass('invalid');
                 $('#machine .row-' + state).addClass('focus-row-err');
                 $('#machine .column-' + word[i]).addClass('focus-col-err');
+                state++;
             }
-            state = globalMachine[state][word[i]];
         } else if (word[i] == ' ') {
             if (globalMachine[state]['final']){
                 $('#machine .row-' + state).addClass('focus-row');
