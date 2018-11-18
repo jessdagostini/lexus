@@ -114,6 +114,7 @@ function updateMachine() {
 
 function verifyWord(word){
     var state = 0;
+    var err = false;
     for (var i = 0; i < word.length; i++) {
         $('#machine tr').removeClass('focus-row');
         $('#machine td').removeClass('focus-col');
@@ -121,7 +122,7 @@ function verifyWord(word){
         $('#machine td').removeClass('focus-col-err');
 
         if (word[i] >= 'a' && word[i] <= 'z'){
-            if (globalMachine[state][word[i]] != '-'){
+            if (globalMachine[state][word[i]] != '-' && !err){
                 $('#machine .row-' + state).addClass('focus-row');
                 $('#machine .column-' + word[i]).addClass('focus-col');
                 $('.verify-word').addClass('valid');
@@ -132,15 +133,27 @@ function verifyWord(word){
                 $('.verify-word').addClass('invalid');
                 $('#machine .row-' + state).addClass('focus-row-err');
                 $('#machine .column-' + word[i]).addClass('focus-col-err');
+                err = true;
                 state++;
             }
-        } else if (word[i] == ' ') {
+        } else if (word[i] == ' ' && word.length > 1) {
             if (globalMachine[state]['final']){
                 $('#machine .row-' + state).addClass('focus-row');
                 $('.verify-word').addClass('valid');
                 $('.verify-word').removeClass('invalid');
-                state = 0;
+
+                if (err) {
+                    $('.words').append(`<span class="tag is-danger">${word}</span>`);
+                } else {
+                    $('.words').append(`<span class="tag is-primary">${word}</span>`);
+                }
+            } else {
+                $('.words').append(`<span class="tag is-danger">${word}</span>`);
             }
+            $('.verify-word').val('');
+                $('.verify-word').removeClass('valid');
+                $('.verify-word').removeClass('invalid');
+                state = 0;
         }
     }
 

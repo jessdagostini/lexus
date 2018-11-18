@@ -33,3 +33,7 @@
 #machine td{
     padding-left: 10px;
 }
+
+.is-height{
+    min-height: 160px;
+}
