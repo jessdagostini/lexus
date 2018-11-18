@@ -19,7 +19,13 @@ $(document).ready(function() {
     });
 
     $(".add-word").click(function(){
-        addWord(($('.new-word').val()).toLowerCase());
+        var word = ($('.new-word').val()).toLowerCase(); 
+        addWord(word);
+        iziToast.show({
+            message: `Word '${word}' added to the dict!`,
+            color: 'green',
+            position: 'topCenter'
+        });
     });
 
     $('.verify-word').keyup(() => {
@@ -37,6 +43,7 @@ function addWord(word) {
         if (!regex.test(word)) {
             words.push(word);
             $('#dict').append(`<span class="tag is-primary is-word word-${word}">${word}<button class="delete is-small remove-word" onclick="removeWord('${word}')"></button></span>`);
+
             updateMachine();
         } else {
             alert('Only alphabetical characters are allowed.');
@@ -144,11 +151,29 @@ function verifyWord(word){
 
                 if (err) {
                     $('.words').append(`<span class="tag is-danger">${word}</span>`);
+                    iziToast.show({
+                        title: 'Not Found!',
+                        message: 'Lexus could not recognize the word.',
+                        color: 'red',
+                        position: 'topCenter'
+                    });
                 } else {
                     $('.words').append(`<span class="tag is-primary">${word}</span>`);
+                    iziToast.show({
+                        title: 'Found!',
+                        message: 'Lexus recognized the word!',
+                        color: 'green',
+                        position: 'topCenter'
+                    });
                 }
             } else {
                 $('.words').append(`<span class="tag is-danger">${word}</span>`);
+                iziToast.show({
+                    title: 'Not Found!',
+                    message: 'Lexus could not recognize the word.',
+                    color: 'red',
+                    position: 'topCenter'
+                });
             }
             $('.verify-word').val('');
                 $('.verify-word').removeClass('valid');
